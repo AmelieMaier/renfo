@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Programme de renfo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600&family=Barlow+Condensed:wght@600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #fbf6f8;
+  --surface: #fff;
+  --ink: #2b2230;
+  --muted: #75687c;
+  --line: #eadfe5;
+  --on-c: #2b2230;
+  --c: #d583ab;
+  --tc: #d583ab;
+  box-sizing: border-box;
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #211a26;
+    --surface: #2c2332;
+    --ink: #f6eef2;
+    --muted: #b5a6bd;
+    --line: #43364b;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #211a26;
+  --surface: #2c2332;
+  --ink: #f6eef2;
+  --muted: #b5a6bd;
+  --line: #43364b;
+  color-scheme: dark;
+}
+* {
+  box-sizing: border-box;
+}
+html {
+  scroll-padding-top: env(safe-area-inset-top, 0px);
+}
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font:
+    400 16px/1.5 "Barlow",
+    system-ui,
+    -apple-system,
+    "Segoe UI",
+    sans-serif;
+}
+main {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 20px 16px 48px;
+}
+h1 {
+  font:
+    700 40px/1 "Barlow Condensed",
+    "Arial Narrow",
+    sans-serif;
+  margin: 8px 0 16px;
+  letter-spacing: 0.01em;
+}
+.tabs {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+.tab {
+  flex: 1;
+  text-align: left;
+  padding: 10px 14px;
+  border: 1.5px solid var(--line);
+  border-radius: 10px;
+  background: var(--surface);
+  color: var(--ink);
+  font: inherit;
+  cursor: pointer;
+}
+.tab b {
+  display: block;
+  font:
+    700 22px/1.1 "Barlow Condensed",
+    "Arial Narrow",
+    sans-serif;
+}
+.tab small {
+  color: var(--muted);
+}
+.tab[aria-selected="true"] {
+  background: var(--tc);
+  border-color: var(--tc);
+  color: var(--on-c);
+}
+.tab[aria-selected="true"] small {
+  color: var(--on-c);
+}
+.stripe {
+  display: flex;
+  height: 8px;
+  border-radius: 4px;
+  overflow: hidden;
+  margin: -4px 0 16px;
+}
+.stripe span {
+  flex: 1;
+}
+:focus-visible {
+  outline: 3px solid var(--ink);
+  outline-offset: 2px;
+}
+.bar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 4px 0 18px;
+  color: var(--muted);
+  font-size: 14px;
+}
+.track {
+  flex: 1;
+  height: 10px;
+  border-radius: 5px;
+  background: var(--line);
+  overflow: hidden;
+}
+.fill {
+  height: 100%;
+  width: 0;
+  background: var(--tc);
+  transition: width 0.25s;
+}
+.reset {
+  background: none;
+  border: none;
+  color: var(--muted);
+  text-decoration: underline;
+  font: inherit;
+  cursor: pointer;
+  padding: 4px;
+}
+details {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-left: 8px solid var(--c);
+  border-radius: 12px;
+  margin-bottom: 12px;
+}
+summary {
+  list-style: none;
+  cursor: pointer;
+  padding: 14px 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+summary::-webkit-details-marker {
+  display: none;
+}
+summary::before {
+  content: "";
+  width: 8px;
+  height: 8px;
+  border-right: 2px solid var(--muted);
+  border-bottom: 2px solid var(--muted);
+  transform: rotate(-45deg);
+  transition: transform 0.15s;
+  flex: none;
+}
+details[open] summary::before {
+  transform: rotate(45deg);
+}
+.cname {
+  font:
+    700 22px/1.15 "Barlow Condensed",
+    "Arial Narrow",
+    sans-serif;
+  flex: 1;
+  min-width: 60%;
+}
+.tag {
+  background: var(--accent);
+  color: var(--on-c);
+  border-radius: 999px;
+  padding: 1px 10px;
+  font-size: 13px;
+  font-weight: 600;
+}
+.count {
+  color: var(--muted);
+  font-size: 14px;
+}
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0 16px 8px;
+}
+li {
+  border-top: 1px solid var(--line);
+}
+label {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  padding: 12px 0;
+  cursor: pointer;
+}
+input[type="checkbox"] {
+  width: 22px;
+  height: 22px;
+  margin: 2px 0 0;
+  accent-color: var(--c);
+  flex: none;
+}
+.txt {
+  flex: 1;
+}
+.nom {
+  font-weight: 500;
+}
+.meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 6px;
+}
+.chip {
+  background: color-mix(in srgb, var(--highlight) 38%, var(--surface));
+  color: var(--ink);
+  border-radius: 6px;
+  padding: 1px 8px;
+  font-size: 14px;
+  font-weight: 600;
+}
+.chip.load {
+  background: transparent;
+  border: 1.5px solid var(--highlight);
+  color: var(--ink);
+  font-weight: 500;
+}
+.note {
+  color: var(--muted);
+  font-size: 14px;
+  margin-top: 4px;
+}
+input:checked + .txt .nom {
+  text-decoration: line-through;
+  color: var(--muted);
+}
+.empty {
+  padding: 0 16px 16px;
+  color: var(--muted);
+}
+.topbar { display: flex; justify-content: flex-end; }
+.mode {
+  display: inline-flex;
+  gap: 2px;
+  padding: 2px;
+  border: 1.5px solid var(--line);
+  border-radius: 999px;
+  background: var(--surface);
+}
+.mode button {
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 26px;
+  border: none;
+  border-radius: 999px;
+  background: none;
+  color: var(--muted);
+  cursor: pointer;
+}
+.mode button[aria-pressed="true"] {
+  background: var(--tc);
+  color: var(--on-c);
+}
+</style>
+</head>
+<body>
+<main>
+<div class="topbar">
+  <div class="mode" role="group" aria-label="Thème">
+    <button type="button" data-mode="clair" aria-label="Thème clair" title="Clair">
+      <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+    </button>
+    <button type="button" data-mode="sombre" aria-label="Thème sombre" title="Sombre">
+      <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+    </button>
+  </div>
+</div>
+<h1 id="titre">Programme de renfo</h1>
+<div class="stripe" id="stripe"></div>
+<div class="tabs" role="tablist" id="tabs"></div>
+<div class="bar"><div class="track"><div class="fill" id="fill"></div></div><span id="prog"></span><button class="reset" id="reset" type="button">Tout décocher</button></div>
+<div id="circuits"></div>
+</main>
+<script>
+const PROGRAMME = {
+  "programme": "Programme de renfo",
+  "theme": {
+    "mode": "clair",
+    "palette": {
+      "primary": "#d583ab",
+      "secondary": "#af8cc2",
+      "accent": "#ef9940",
+      "highlight": "#f4cb4d",
+      "alert": "#e06666"
+    },
+    "couleurs_seances": ["primary", "primary"],
+    "couleurs_circuits": [
+      "secondary",
+      "secondary",
+      "secondary",
+      "secondary",
+      "secondary"
+    ],
+    "texte_sur_couleur": "#2b2230",
+    "clair": {
+      "fond": "#fbf6f8",
+      "surface": "#ffffff",
+      "texte": "#2b2230",
+      "discret": "#75687c",
+      "trait": "#eadfe5"
+    },
+    "sombre": {
+      "fond": "#211a26",
+      "surface": "#2c2332",
+      "texte": "#f6eef2",
+      "discret": "#b5a6bd",
+      "trait": "#43364b"
+    }
+  },
+  "seances": [
+    {
+      "id": "seance-1",
+      "titre": "Séance 1",
+      "themes": ["épaule", "jambes", "gainage"],
+      "circuits": [
+        {
+          "id": "s1-echauffement-epaule",
+          "nom": "Échauffement épaules – Mini circuit épaule",
+          "type": "echauffement",
+          "tours": null,
+          "exercices": [
+            {
+              "nom": "Relevé bras 90° devant, tenir, puis monter bras au-dessus de la tête",
+              "series": 2,
+              "reps": 5,
+              "par": "exo/bras"
+            },
+            {
+              "nom": "Ouverture avant-bras couché",
+              "series": 2,
+              "reps": 8,
+              "par": "bras"
+            }
+          ]
+        },
+        {
+          "id": "s1-echauffement-jambes",
+          "nom": "Échauffement – Mini circuit jambes",
+          "type": "echauffement",
+          "tours": 2,
+          "exercices": [
+            { "nom": "Montée/descente de caisse depuis les genoux", "reps": 5 },
+            { "nom": "Squat sauté + saut sur caisse", "reps": 5 }
+          ]
+        },
+        {
+          "id": "s1-circuit-principal",
+          "nom": "Circuit principal",
+          "type": "circuit",
+          "tours": 3,
+          "tours_min": true,
+          "exercices": [
+            {
+              "nom": "Squat pistol pied dans le vide derrière + sauts sur la caisse / saut groupé enchaîné",
+              "reps": 6,
+              "charge": "à définir, puis à vide",
+              "notes": "6 reps avec charge, puis 3 reps à vide"
+            },
+            {
+              "nom": "Développé militaire",
+              "reps": 6,
+              "charge": "haltère à définir"
+            },
+            {
+              "nom": "Dead lift jambes tendues",
+              "reps": 10,
+              "charge": "barre à définir"
+            },
+            {
+              "nom": "ATR repoussées avec élastiques",
+              "reps": 10,
+              "charge": "élastique 15 kg"
+            }
+          ]
+        },
+        {
+          "id": "s1-gainage",
+          "nom": "Gainage – 30 s chacun, sans repos",
+          "type": "gainage",
+          "tours": 1,
+          "exercices": [
+            { "nom": "Planche devant sur les coudes", "duree_s": 30 },
+            { "nom": "Planche côté gauche sur les coudes", "duree_s": 30 },
+            { "nom": "Planche côté droit sur les coudes", "duree_s": 30 },
+            { "nom": "Planche devant sur les mains", "duree_s": 30 },
+            { "nom": "Planche côté gauche sur les mains", "duree_s": 30 },
+            { "nom": "Planche côté droit sur les mains", "duree_s": 30 }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "seance-2",
+      "titre": "Séance 2",
+      "themes": ["chevilles", "plio", "sauts"],
+      "circuits": [
+        {
+          "id": "s2-chevilles",
+          "nom": "Chevilles",
+          "type": "circuit",
+          "exercices": [
+            {
+              "nom": "Relevés sur demi-pointe, talon dans le vide",
+              "reps": 10
+            },
+            {
+              "nom": "Marche sur demi-pointe en relevant les pointes",
+              "reps": 20,
+              "par": "pas/direction"
+            },
+            {
+              "nom": "Proprio : tirer l'élastique vers l'intérieur",
+              "reps": 10,
+              "par": "jambe"
+            },
+            {
+              "nom": "Proprio : pousser l'élastique vers l'extérieur",
+              "reps": 10,
+              "par": "jambe"
+            },
+            {
+              "nom": "Maintien talon dans le vide + relevés sur une jambe",
+              "reps": 5,
+              "duree_s": 30,
+              "charge": "haltère 5 kg",
+              "notes": "30 s de maintien + 5 relevés"
+            },
+            {
+              "nom": "Flex pointe / intérieur / extérieur",
+              "reps": 10,
+              "par": "exercice/jambe",
+              "charge": "élastique 15 kg"
+            },
+            {
+              "nom": "Saut ¼ de tour, 2 pieds vers 1 pied, tourne à droite et à gauche",
+              "reps": 5,
+              "par": "jambe",
+              "notes": "5 en alternance"
+            }
+          ]
+        },
+        {
+          "id": "s2-plio",
+          "nom": "Plio",
+          "type": "circuit",
+          "exercices": [
+            { "nom": "Saut sur hauteur + rebond", "reps": 10 },
+            {
+              "nom": "Rebond petite hauteur",
+              "reps": 20,
+              "par": "jambe",
+              "notes": "20 aller-retours"
+            },
+            { "nom": "Rebond : 2 petits, 1 grand", "reps": 15 },
+            { "nom": "Assis + saut vers le haut", "reps": 12 },
+            { "nom": "Assis + saut vers l'avant" }
+          ]
+        },
+        {
+          "id": "s2-sauts",
+          "nom": "Sauts",
+          "type": "circuit",
+          "sous_circuits": [
+            {
+              "id": "s2-sauts-etirements",
+              "nom": "Étirements",
+              "exercices": [
+                {
+                  "nom": "Bras croisés, regard vers l'avant",
+                  "duree_s": 30,
+                  "par": "côté"
+                },
+                {
+                  "nom": "Bras aux oreilles, regard vers la jambe",
+                  "duree_s": 30,
+                  "par": "côté"
+                },
+                { "nom": "Écrasement facial", "duree_s": 60 }
+              ]
+            },
+            {
+              "id": "s2-sauts-petits",
+              "nom": "Petits battements",
+              "charge": "bracelets 0,5 kg",
+              "exercices": [
+                {
+                  "nom": "Écart : battement par-dessus un objet",
+                  "reps": 10,
+                  "par": "côté",
+                  "notes": "10 aller-retours"
+                },
+                { "nom": "Écart : relevé tenu", "duree_s": 20, "par": "côté" },
+                { "nom": "Fermeture : battement", "reps": 20, "par": "côté" },
+                {
+                  "nom": "Fermeture : relevé tenu",
+                  "duree_s": 20,
+                  "par": "côté"
+                }
+              ]
+            },
+            {
+              "id": "s2-sauts-grands",
+              "nom": "Grands battements",
+              "charge": "bracelets 1 kg",
+              "exercices": [
+                {
+                  "nom": "Sur les coudes, devant et côté",
+                  "reps": 10,
+                  "par": "/position/côté"
+                },
+                {
+                  "nom": "Sur le dos, devant et côté",
+                  "reps": 10,
+                  "par": "/position/côté"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+};
+
+/* Les sous-circuits sont affichés comme des blocs « Parent – Sous-circuit » */
+PROGRAMME.seances.forEach(s => {
+  s.circuits = s.circuits.flatMap(c => c.sous_circuits
+    ? c.sous_circuits.map(sc => ({ ...sc, nom: c.nom + " – " + sc.nom }))
+    : [c]);
+});
+
+/* Couleurs : palette du JSON, répartie par séance et par circuit (champ "couleur" optionnel pour forcer) */
+const CIRCUITS_OUVERTS = false;
+const T = PROGRAMME.theme, PAL = T.palette;
+const col = v => PAL[v] || v; /* nom de rôle (primary...) ou couleur hex */
+const CS = T.couleurs_seances || ["primary", "secondary"];
+const CC = T.couleurs_circuits || Object.keys(PAL);
+PROGRAMME.seances.forEach((s, si) => {
+  s.couleur = col(s.couleur || CS[si % CS.length]);
+  s.circuits.forEach((c, i) => { c.couleur = col(c.couleur || CC[i % CC.length]); });
+});
+const MODE_KEY = "renfo-mode-v1";
+let mode = T.mode || "auto"; // valeur du JSON par défaut
+try { mode = localStorage.getItem(MODE_KEY) || mode; } catch (e) {}
+
+function appliquerTheme() {
+  const sombre = mode === "auto"
+    ? matchMedia("(prefers-color-scheme: dark)").matches
+    : mode === "sombre";
+  const m = sombre ? T.sombre : T.clair;
+  const r = document.documentElement.style;
+  r.setProperty("--bg", m.fond); r.setProperty("--surface", m.surface); r.setProperty("--ink", m.texte);
+  r.setProperty("--muted", m.discret); r.setProperty("--line", m.trait); r.setProperty("--on-c", T.texte_sur_couleur);
+  r.colorScheme = sombre ? "dark" : "light";
+  Object.entries(PAL).forEach(([k, v]) => r.setProperty("--" + k, v));
+  document.querySelectorAll(".mode button").forEach(b =>
+    b.setAttribute("aria-pressed", String((b.dataset.mode === "sombre") === sombre)));
+}
+appliquerTheme();
+matchMedia("(prefers-color-scheme: dark)").addEventListener("change", appliquerTheme);
+document.querySelectorAll(".mode button").forEach(b => {
+  b.onclick = () => {
+    mode = b.dataset.mode;
+    try { localStorage.setItem(MODE_KEY, mode); } catch (e) {}
+    appliquerTheme();
+  };
+});
+Object.values(PAL).forEach(hex => { const sp = document.createElement("span"); sp.style.background = hex; document.getElementById("stripe").appendChild(sp); });
+
+const KEY = "renfo-coches-v1";
+let coches = {};
+try { coches = JSON.parse(localStorage.getItem(KEY) || "{}"); } catch (e) { coches = {}; }
+function sauver() { try { localStorage.setItem(KEY, JSON.stringify(coches)); } catch (e) {} }
+
+let actif = 0;
+const $ = id => document.getElementById(id);
+
+function chips(ex) {
+  const out = [];
+  const par = ex.par ? (ex.par.includes("/") ? " " + ex.par : "/" + ex.par) : "";
+  if (ex.series && ex.reps) out.push(ex.series + " séries × " + ex.reps + par);
+  else if (ex.duree_s && ex.reps) out.push(ex.duree_s + " s + " + ex.reps + " reps" + par);
+  else if (ex.reps) out.push(ex.reps + (par ? "" : " reps") + par);
+  else if (ex.duree_s) out.push(ex.duree_s + " s" + par);
+  return out;
+}
+
+function cle(c, i) { return c.id + ":" + i; }
+
+function render() {
+  const s = PROGRAMME.seances[actif];
+  $("titre").textContent = PROGRAMME.programme;
+  document.documentElement.style.setProperty("--tc", s.couleur);
+  $("tabs").innerHTML = "";
+  PROGRAMME.seances.forEach((x, i) => {
+    const b = document.createElement("button");
+    b.className = "tab"; b.type = "button"; b.setAttribute("role", "tab");
+    b.setAttribute("aria-selected", i === actif);
+    b.style.setProperty("--tc", x.couleur);
+    b.innerHTML = "<b></b><small></small>";
+    b.firstChild.textContent = x.titre;
+    b.lastChild.textContent = x.themes.join(", ");
+    b.onclick = () => { actif = i; render(); };
+    $("tabs").appendChild(b);
+  });
+
+  const zone = $("circuits");
+  zone.innerHTML = "";
+  s.circuits.forEach((c, ci) => {
+    const d = document.createElement("details");
+    d.open = c.ouvert ?? CIRCUITS_OUVERTS;
+    d.style.setProperty("--c", c.couleur);
+    const sm = document.createElement("summary");
+    const n = document.createElement("span"); n.className = "cname"; n.textContent = c.nom;
+    sm.appendChild(n);
+    if (c.tours && c.tours > 1) {
+      const t = document.createElement("span"); t.className = "tag";
+      t.textContent = c.tours + " tours" + (c.tours_min ? " min" : ""); sm.appendChild(t);
+    }
+    if (c.charge) {
+      const ch = document.createElement("span"); ch.className = "chip load"; ch.textContent = c.charge; sm.appendChild(ch);
+    }
+    const cnt = document.createElement("span"); cnt.className = "count"; sm.appendChild(cnt);
+    d.appendChild(sm);
+
+    if (!c.exercices.length) {
+      const e = document.createElement("p"); e.className = "empty";
+      e.textContent = "Aucun exercice pour l'instant. Ajoute-les dans le JSON."; d.appendChild(e);
+      cnt.textContent = "";
+    } else {
+      const ul = document.createElement("ul");
+      c.exercices.forEach((ex, i) => {
+        const li = document.createElement("li");
+        const lab = document.createElement("label");
+        const cb = document.createElement("input"); cb.type = "checkbox";
+        cb.checked = !!coches[cle(c, i)];
+        cb.onchange = () => { if (cb.checked) coches[cle(c, i)] = 1; else delete coches[cle(c, i)]; sauver(); maj(); };
+        const tx = document.createElement("div"); tx.className = "txt";
+        const nm = document.createElement("div"); nm.className = "nom"; nm.textContent = ex.nom;
+        tx.appendChild(nm);
+        const meta = document.createElement("div"); meta.className = "meta";
+        chips(ex).forEach(t => { const k = document.createElement("span"); k.className = "chip"; k.textContent = t; meta.appendChild(k); });
+        if (ex.charge) { const k = document.createElement("span"); k.className = "chip load"; k.textContent = ex.charge; meta.appendChild(k); }
+        if (meta.children.length) tx.appendChild(meta);
+        if (ex.notes) { const no = document.createElement("div"); no.className = "note"; no.textContent = ex.notes; tx.appendChild(no); }
+        lab.append(cb, tx); li.appendChild(lab); ul.appendChild(li);
+      });
+      d.appendChild(ul);
+    }
+    zone.appendChild(d);
+  });
+  maj();
+}
+
+function maj() {
+  const s = PROGRAMME.seances[actif];
+  let total = 0, fait = 0;
+  const details = document.querySelectorAll("#circuits details");
+  s.circuits.forEach((c, ci) => {
+    let f = 0;
+    c.exercices.forEach((_, i) => { if (coches[cle(c, i)]) f++; });
+    total += c.exercices.length; fait += f;
+    const cnt = details[ci].querySelector(".count");
+    if (c.exercices.length) cnt.textContent = f + "/" + c.exercices.length;
+  });
+  $("fill").style.width = total ? (100 * fait / total) + "%" : "0";
+  $("prog").textContent = fait + " / " + total + " exercices";
+}
+
+$("reset").onclick = () => {
+  const s = PROGRAMME.seances[actif];
+  s.circuits.forEach(c => c.exercices.forEach((_, i) => delete coches[cle(c, i)]));
+  sauver(); render();
+};
+render();
+</script>
+</body>
+</html>
