@@ -1,0 +1,249 @@
+{
+  "programme": "Programme de renfo",
+  "theme": {
+    "mode": "clair",
+    "palette": {
+      "primary": "#d583ab",
+      "secondary": "#af8cc2",
+      "accent": "#ef9940",
+      "highlight": "#f4cb4d",
+      "alert": "#e06666"
+    },
+    "couleurs_seances": ["primary", "primary"],
+    "couleurs_circuits": [
+      "secondary",
+      "secondary",
+      "secondary",
+      "secondary",
+      "secondary"
+    ],
+    "texte_sur_couleur": "#2b2230",
+    "clair": {
+      "fond": "#fbf6f8",
+      "surface": "#ffffff",
+      "texte": "#2b2230",
+      "discret": "#75687c",
+      "trait": "#eadfe5"
+    },
+    "sombre": {
+      "fond": "#211a26",
+      "surface": "#2c2332",
+      "texte": "#f6eef2",
+      "discret": "#b5a6bd",
+      "trait": "#43364b"
+    }
+  },
+  "seances": [
+    {
+      "id": "seance-1",
+      "titre": "Séance 1",
+      "themes": ["épaule", "jambes", "gainage"],
+      "circuits": [
+        {
+          "id": "s1-echauffement-epaule",
+          "nom": "Échauffement épaules – Mini circuit épaule",
+          "type": "echauffement",
+          "tours": null,
+          "exercices": [
+            {
+              "nom": "Relevé bras 90° devant, tenir, puis monter bras au-dessus de la tête",
+              "series": 2,
+              "reps": 5,
+              "par": "exo/bras"
+            },
+            {
+              "nom": "Ouverture avant-bras couché",
+              "series": 2,
+              "reps": 8,
+              "par": "bras"
+            }
+          ]
+        },
+        {
+          "id": "s1-echauffement-jambes",
+          "nom": "Échauffement – Mini circuit jambes",
+          "type": "echauffement",
+          "tours": 2,
+          "exercices": [
+            { "nom": "Montée/descente de caisse depuis les genoux", "reps": 5 },
+            { "nom": "Squat sauté + saut sur caisse", "reps": 5 }
+          ]
+        },
+        {
+          "id": "s1-circuit-principal",
+          "nom": "Circuit principal",
+          "type": "circuit",
+          "tours": 3,
+          "tours_min": true,
+          "exercices": [
+            {
+              "nom": "Squat pistol pied dans le vide derrière + sauts sur la caisse / saut groupé enchaîné",
+              "reps": 6,
+              "charge": "à définir, puis à vide",
+              "notes": "6 reps avec charge, puis 3 reps à vide"
+            },
+            {
+              "nom": "Développé militaire",
+              "reps": 6,
+              "charge": "haltère à définir"
+            },
+            {
+              "nom": "Dead lift jambes tendues",
+              "reps": 10,
+              "charge": "barre à définir"
+            },
+            {
+              "nom": "ATR repoussées avec élastiques",
+              "reps": 10,
+              "charge": "élastique 15 kg"
+            }
+          ]
+        },
+        {
+          "id": "s1-gainage",
+          "nom": "Gainage – 30 s chacun, sans repos",
+          "type": "gainage",
+          "tours": 1,
+          "exercices": [
+            { "nom": "Planche devant sur les coudes", "duree_s": 30 },
+            { "nom": "Planche côté gauche sur les coudes", "duree_s": 30 },
+            { "nom": "Planche côté droit sur les coudes", "duree_s": 30 },
+            { "nom": "Planche devant sur les mains", "duree_s": 30 },
+            { "nom": "Planche côté gauche sur les mains", "duree_s": 30 },
+            { "nom": "Planche côté droit sur les mains", "duree_s": 30 }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "seance-2",
+      "titre": "Séance 2",
+      "themes": ["chevilles", "plio", "sauts"],
+      "circuits": [
+        {
+          "id": "s2-chevilles",
+          "nom": "Chevilles",
+          "type": "circuit",
+          "exercices": [
+            {
+              "nom": "Relevés sur demi-pointe, talon dans le vide",
+              "reps": 10
+            },
+            {
+              "nom": "Marche sur demi-pointe en relevant les pointes",
+              "reps": 20,
+              "par": "pas/direction"
+            },
+            {
+              "nom": "Proprio : tirer l'élastique vers l'intérieur",
+              "reps": 10,
+              "par": "jambe"
+            },
+            {
+              "nom": "Proprio : pousser l'élastique vers l'extérieur",
+              "reps": 10,
+              "par": "jambe"
+            },
+            {
+              "nom": "Maintien talon dans le vide + relevés sur une jambe",
+              "reps": 5,
+              "duree_s": 30,
+              "charge": "haltère 5 kg",
+              "notes": "30 s de maintien + 5 relevés"
+            },
+            {
+              "nom": "Flex pointe / intérieur / extérieur",
+              "reps": 10,
+              "par": "exercice/jambe",
+              "charge": "élastique 15 kg"
+            },
+            {
+              "nom": "Saut ¼ de tour, 2 pieds vers 1 pied, tourne à droite et à gauche",
+              "reps": 5,
+              "par": "jambe",
+              "notes": "5 en alternance"
+            }
+          ]
+        },
+        {
+          "id": "s2-plio",
+          "nom": "Plio",
+          "type": "circuit",
+          "exercices": [
+            { "nom": "Saut sur hauteur + rebond", "reps": 10 },
+            {
+              "nom": "Rebond petite hauteur",
+              "reps": 20,
+              "par": "jambe",
+              "notes": "20 aller-retours"
+            },
+            { "nom": "Rebond : 2 petits, 1 grand", "reps": 15 },
+            { "nom": "Assis + saut vers le haut", "reps": 12 },
+            { "nom": "Assis + saut vers l'avant" }
+          ]
+        },
+        {
+          "id": "s2-sauts",
+          "nom": "Sauts",
+          "type": "circuit",
+          "sous_circuits": [
+            {
+              "id": "s2-sauts-etirements",
+              "nom": "Étirements",
+              "exercices": [
+                {
+                  "nom": "Bras croisés, regard vers l'avant",
+                  "duree_s": 30,
+                  "par": "côté"
+                },
+                {
+                  "nom": "Bras aux oreilles, regard vers la jambe",
+                  "duree_s": 30,
+                  "par": "côté"
+                },
+                { "nom": "Écrasement facial", "duree_s": 60 }
+              ]
+            },
+            {
+              "id": "s2-sauts-petits",
+              "nom": "Petits battements",
+              "charge": "bracelets 0,5 kg",
+              "exercices": [
+                {
+                  "nom": "Écart : battement par-dessus un objet",
+                  "reps": 10,
+                  "par": "côté",
+                  "notes": "10 aller-retours"
+                },
+                { "nom": "Écart : relevé tenu", "duree_s": 20, "par": "côté" },
+                { "nom": "Fermeture : battement", "reps": 20, "par": "côté" },
+                {
+                  "nom": "Fermeture : relevé tenu",
+                  "duree_s": 20,
+                  "par": "côté"
+                }
+              ]
+            },
+            {
+              "id": "s2-sauts-grands",
+              "nom": "Grands battements",
+              "charge": "bracelets 1 kg",
+              "exercices": [
+                {
+                  "nom": "Sur les coudes, devant et côté",
+                  "reps": 10,
+                  "par": "/position/côté"
+                },
+                {
+                  "nom": "Sur le dos, devant et côté",
+                  "reps": 10,
+                  "par": "/position/côté"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
